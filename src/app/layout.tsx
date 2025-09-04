@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { DefaultSEO } from "@/components/seo/DefaultSEO";
+import { Plausible } from "@/components/analytics/Plausible";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -42,6 +44,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-neutral-950 text-neutral-200 antialiased`}
       >
+        <DefaultSEO />
+        <Plausible />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
       </body>
     </html>

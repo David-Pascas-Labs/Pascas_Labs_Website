@@ -42,6 +42,8 @@ pnpm lint
 
 ```
 NEXT_PUBLIC_SITE_URL=https://deine-domain.tld
+# Plausible (optional)
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=deine-domain.tld
 # Mailversand (optional für SSR/Route Handler)
 SMTP_HOST=smtp.ionos.de
 SMTP_PORT=587
@@ -54,6 +56,12 @@ SMTP_TO=team@deine-domain.tld
 ### Komponenten
 
 - shadcn/ui Komponenten liegen unter `src/components/ui`
+
+### SEO & Analytics
+
+- Default SEO via next-seo: `src/components/seo/DefaultSEO.tsx`
+- Sitemap/Robots: `src/app/sitemap.ts`, `src/app/robots.ts`
+- Plausible (optional, nur aktiv wenn `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` gesetzt)
 
 ### Kontaktformular – Optionen
 
