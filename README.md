@@ -63,6 +63,18 @@ SMTP_TO=team@deine-domain.tld
 - Sitemap/Robots: `src/app/sitemap.ts`, `src/app/robots.ts`
 - Plausible (optional, nur aktiv wenn `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` gesetzt)
 
+### Tests (Playwright)
+
+```bash
+pnpm test:e2e
+```
+
+### CI & Deploy
+
+- CI: `.github/workflows/ci.yml` (lint, build, e2e)
+- Deploy: `.github/workflows/deploy-static.yml` (Static Export + SFTP nach IONOS)
+  - Secrets: `IONOS_SFTP_HOST`, `IONOS_SFTP_USER`, `IONOS_SFTP_PASS`
+
 ### Kontaktformular – Optionen
 
 - Eigene Server-Route: `src/app/api/kontakt/route.ts` (IONOS SMTP)
