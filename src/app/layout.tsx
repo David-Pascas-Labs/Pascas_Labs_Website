@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "KI, Software & Systems – Innovative Technologielösungen für die digitale Transformation.",
     url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
     siteName: "Pascas Labs",
-    images: [{ url: "/og/og-default.png" }],
+    images: [{ url: "/og/og-default.svg" }],
     locale: "de_DE",
     type: "website",
   },
