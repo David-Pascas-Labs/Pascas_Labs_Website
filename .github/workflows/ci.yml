@@ -7,9 +7,6 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pascas-labs-site
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -19,13 +16,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm build
+      - run: pnpm -C pascas-labs-site install
+      - run: pnpm -C pascas-labs-site lint
+      - run: pnpm -C pascas-labs-site build
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
       - name: Run E2E
-        run: pnpm test:e2e:ci
+        run: pnpm -C pascas-labs-site test:e2e:ci
         env:
           BASE_URL: http://localhost:3000
 
