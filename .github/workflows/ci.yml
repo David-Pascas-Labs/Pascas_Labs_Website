@@ -7,26 +7,33 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pascas-labs-site
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
         with:
-          version: 9
+          path: pascas-labs-site
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Disable cache lookup to avoid lockfile path errors in monorepo layout
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm build
+      - name: Enable pnpm via corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@9 --activate
+      - name: Install deps
+        run: pnpm install
+        working-directory: pascas-labs-site
+      - name: Lint
+        run: pnpm lint
+        working-directory: pascas-labs-site
+      - name: Build
+        run: pnpm build
+        working-directory: pascas-labs-site
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
+        working-directory: pascas-labs-site
       - name: Run E2E
         run: pnpm test:e2e:ci
         env:
           BASE_URL: http://localhost:3000
+        working-directory: pascas-labs-site
 

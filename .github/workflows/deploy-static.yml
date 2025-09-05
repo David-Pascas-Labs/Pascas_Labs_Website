@@ -5,22 +5,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pascas-labs-site
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v3
         with:
-          version: 9
+          path: pascas-labs-site
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # Disable cache lookup to avoid lockfile path errors in monorepo layout
-      - run: pnpm install
+      - name: Enable pnpm via corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@9 --activate
+      - name: Install deps
+        run: pnpm install
+        working-directory: pascas-labs-site
       - name: Build (static export)
         run: pnpm build
+        working-directory: pascas-labs-site
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
@@ -30,7 +32,7 @@ jobs:
           server: ${{ secrets.IONOS_SFTP_HOST }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
-          local_path: "./out/*"
+          local_path: "pascas-labs-site/out/*"
           remote_path: "/public_html"
           delete_remote_files: true
 
