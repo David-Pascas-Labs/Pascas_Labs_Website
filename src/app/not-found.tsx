@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+export const dynamic = "error";
 export default function NotFound() {
   return (
     <main className="mx-auto max-w-xl py-24 text-center">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { DefaultSEO } from "@/components/seo/DefaultSEO";
-import { Plausible } from "@/components/analytics/Plausible";
+// Removed DefaultSEO to avoid SSR context issues during export. Keep Plausible client-only in pages if needed.
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,14 +17,19 @@ export const metadata: Metadata = {
   title: "Pascas Labs – Passion for AI, Software, Creativity & Systems",
   description:
     "Wir entwickeln innovative KI-Lösungen, kreative Software und intelligente Systeme, die Ihr Unternehmen in die Zukunft führen.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  ),
+  metadataBase:
+    process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL !== ""
+      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+      : undefined,
   openGraph: {
     title: "Pascas Labs",
     description:
       "KI, Software & Systems – Innovative Technologielösungen für die digitale Transformation.",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL &&
+      process.env.NEXT_PUBLIC_SITE_URL !== ""
+        ? process.env.NEXT_PUBLIC_SITE_URL
+        : undefined,
     siteName: "Pascas Labs",
     images: [{ url: "/og/og-default.svg" }],
     locale: "de_DE",
@@ -44,8 +48,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-neutral-950 text-neutral-200 antialiased`}
       >
-        <DefaultSEO />
-        <Plausible />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>
       </body>
     </html>
