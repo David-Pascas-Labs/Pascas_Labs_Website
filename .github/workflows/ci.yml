@@ -20,6 +20,7 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: pascas-labs-site/pnpm-lock.yaml
       - run: pnpm install
       - run: pnpm lint
       - run: pnpm build
