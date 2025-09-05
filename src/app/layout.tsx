@@ -13,23 +13,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+function safeUrlFromEnv(value: string | undefined): URL | undefined {
+  try {
+    if (!value || value.trim() === "") return undefined;
+    const url = new URL(value);
+    if (!(url.protocol === "http:" || url.protocol === "https:"))
+      return undefined;
+    return url;
+  } catch {
+    return undefined;
+  }
+}
+
 export const metadata: Metadata = {
   title: "Pascas Labs – Passion for AI, Software, Creativity & Systems",
   description:
     "Wir entwickeln innovative KI-Lösungen, kreative Software und intelligente Systeme, die Ihr Unternehmen in die Zukunft führen.",
-  metadataBase:
-    process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL !== ""
-      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-      : undefined,
+  metadataBase: safeUrlFromEnv(process.env.NEXT_PUBLIC_SITE_URL),
   openGraph: {
     title: "Pascas Labs",
     description:
       "KI, Software & Systems – Innovative Technologielösungen für die digitale Transformation.",
-    url:
-      process.env.NEXT_PUBLIC_SITE_URL &&
-      process.env.NEXT_PUBLIC_SITE_URL !== ""
-        ? process.env.NEXT_PUBLIC_SITE_URL
-        : undefined,
+    url: safeUrlFromEnv(process.env.NEXT_PUBLIC_SITE_URL)?.toString(),
     siteName: "Pascas Labs",
     images: [{ url: "/og/og-default.svg" }],
     locale: "de_DE",

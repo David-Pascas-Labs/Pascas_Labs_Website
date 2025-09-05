@@ -45,7 +45,7 @@ export default function ContactPage() {
         Schreiben Sie uns. Wir melden uns schnellstmöglich.
       </p>
 
-      <form onSubmit={onSubmit} className="mt-8 space-y-6">
+      <form onSubmit={onSubmit} noValidate className="mt-8 space-y-6">
         <div>
           <label className="block text-sm text-neutral-300">Name *</label>
           <input
