@@ -21,6 +21,10 @@ jobs:
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' }}
           NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
+      - name: Debug out directory
+        run: |
+          echo "Listing out directory" && ls -la out || true
+          echo "Tree:" && (command -v tree && tree -a out || true)
       - name: Upload via SFTP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -28,6 +32,6 @@ jobs:
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
           port: 22
-          source: "./out/*"
+          source: "out/**"
           target: "/public_html"
 
