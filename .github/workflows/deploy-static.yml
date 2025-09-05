@@ -17,8 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
-          cache-dependency-path: pascas-labs-site/pnpm-lock.yaml
+          # Disable cache lookup to avoid lockfile path errors in monorepo layout
       - run: pnpm install
       - name: Build (static export)
         run: pnpm build
