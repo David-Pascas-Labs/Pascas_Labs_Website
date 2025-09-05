@@ -32,6 +32,7 @@ jobs:
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
           port: 22
-          source: "out/**"
+          source: "out"
+          strip_components: 1
           target: "/public_html"
 
