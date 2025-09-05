@@ -6,6 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
+    "export": "next export",
+    "build:export": "next build --turbopack && next export",
     "lint": "eslint",
     "test:e2e": "playwright test",
     "test:e2e:ci": "playwright test --reporter=github",

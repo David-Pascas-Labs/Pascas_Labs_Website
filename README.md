@@ -74,6 +74,13 @@ pnpm test:e2e
 - CI: `.github/workflows/ci.yml` (lint, build, e2e)
 - Deploy: `.github/workflows/deploy-static.yml` (Static Export + SFTP nach IONOS)
   - Secrets: `IONOS_SFTP_HOST`, `IONOS_SFTP_USER`, `IONOS_SFTP_PASS`
+  - Variables: `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
+  - Export lokal/CI:
+    ```bash
+    pnpm build && pnpm export
+    # Ergebnis: ./out (Upload nach /public_html)
+    ```
+  - Caching: `.htaccess` unter `public/` für Cache‑Header
 
 ### Kontaktformular – Optionen
 
