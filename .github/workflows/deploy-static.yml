@@ -15,7 +15,9 @@ jobs:
         with:
           node-version: 20
       - name: Install deps
-        run: pnpm install --include=dev
+        env:
+          npm_config_optional: false
+        run: pnpm install --include=dev --no-optional
       - name: Build (static export)
         run: pnpm run build:export
         env:
