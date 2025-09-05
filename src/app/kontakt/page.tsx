@@ -18,7 +18,7 @@ export default function ContactPage() {
 
     if (!(payload.name && payload.email && payload.message)) {
       setError("Bitte alle Pflichtfelder ausfüllen.");
-      setState("idle");
+      setState("error");
       return;
     }
 
