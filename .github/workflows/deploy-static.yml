@@ -5,9 +5,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pascas-labs-site
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v3
@@ -18,9 +15,9 @@ jobs:
         with:
           node-version: 20
       - name: Install deps
-        run: pnpm -C pascas-labs-site install
+        run: pnpm install
       - name: Build (static export)
-        run: pnpm -C pascas-labs-site build
+        run: pnpm build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
@@ -30,7 +27,7 @@ jobs:
           server: ${{ secrets.IONOS_SFTP_HOST }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
-          local_path: "pascas-labs-site/out/*"
+          local_path: "./out/*"
           remote_path: "/public_html"
           delete_remote_files: true
 
