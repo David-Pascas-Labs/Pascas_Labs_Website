@@ -15,19 +15,19 @@ jobs:
         with:
           node-version: 20
       - name: Install deps
-        run: pnpm install
+        run: pnpm install --frozen-lockfile --include=dev
       - name: Build (static export)
-        run: pnpm build
+        run: pnpm run build:export
         env:
           NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${{ vars.NEXT_PUBLIC_PLAUSIBLE_DOMAIN }}
       - name: Upload via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.IONOS_SFTP_HOST }}
+          host: ${{ secrets.IONOS_SFTP_HOST }}
           username: ${{ secrets.IONOS_SFTP_USER }}
           password: ${{ secrets.IONOS_SFTP_PASS }}
-          local_path: "./out/*"
-          remote_path: "/public_html"
-          delete_remote_files: true
+          port: 22
+          source: "./out/*"
+          target: "/public_html"
 
